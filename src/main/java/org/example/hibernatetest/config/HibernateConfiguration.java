@@ -10,21 +10,16 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import java.util.Properties;
-
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 public class HibernateConfiguration {
-
     private final Environment environment;
-
     @Autowired
     public HibernateConfiguration(final Environment environment) {
         this.environment = environment;
     }
-
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
@@ -33,7 +28,6 @@ public class HibernateConfiguration {
         localSessionFactoryBean.setPackagesToScan("org.example.hibernatetest.entity");
         return localSessionFactoryBean;
     }
-
     @Bean
     @Autowired
     public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
@@ -41,7 +35,6 @@ public class HibernateConfiguration {
         hibernateTransactionManager.setSessionFactory(sessionFactory);
         return hibernateTransactionManager;
     }
-
     @Bean
     public BasicDataSource basicDataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
@@ -51,7 +44,6 @@ public class HibernateConfiguration {
         basicDataSource.setPassword(environment.getProperty("jdbc.pass"));
         return basicDataSource;
     }
-
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
