@@ -20,28 +20,30 @@ public class HibernateConfiguration {
 
     private final Environment environment;
 
+    @Autowired
     public HibernateConfiguration(final Environment environment) {
         this.environment = environment;
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
-LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-localSessionFactoryBean.setDataSource(basicDataSource());
-localSessionFactoryBean.setHibernateProperties(hibernateProperties());
-localSessionFactoryBean.setPackagesToScan("org.example.hibernatetest.entity");
-return localSessionFactoryBean;
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+        localSessionFactoryBean.setDataSource(basicDataSource());
+        localSessionFactoryBean.setHibernateProperties(hibernateProperties());
+        localSessionFactoryBean.setPackagesToScan("org.example.hibernatetest.entity");
+        return localSessionFactoryBean;
     }
 
     @Bean
     @Autowired
-public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory){
-HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
-hibernateTransactionManager.setSessionFactory(sessionFactory);
-return hibernateTransactionManager;
-}
+    public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
+        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
+        hibernateTransactionManager.setSessionFactory(sessionFactory);
+        return hibernateTransactionManager;
+    }
+
     @Bean
-    public BasicDataSource basicDataSource(){
+    public BasicDataSource basicDataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
         basicDataSource.setUrl(environment.getProperty("jdbc.url"));
@@ -49,6 +51,7 @@ return hibernateTransactionManager;
         basicDataSource.setPassword(environment.getProperty("jdbc.pass"));
         return basicDataSource;
     }
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
