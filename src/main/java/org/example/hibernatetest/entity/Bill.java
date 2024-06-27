@@ -17,22 +17,6 @@ public class Bill {
         this.amount = amount;
     }
 
-    public Long getBillId() {
-        return billId;
-    }
-
-    public void setBillId(final Long billId) {
-        this.billId = billId;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(final Integer amount) {
-        this.amount = amount;
-    }
-
     public Bill() {
     }
 
